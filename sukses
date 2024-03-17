@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Sukses</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background-color: #ffffff; /* Warna putih */
+      border-radius: 10px; /* Radius sudut 10px */
+      padding: 20px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Bayangan ke bawah */
+      text-align: center;
+      max-width: 350px; /* Maksimum lebar kotak */
+      width: 80%; /* Lebar kotak */
+      margin: 0 10px; /* Jarak pada sisi kanan dan kiri */
+    }
+
+    .check-icon {
+      fill: #008000; /* Warna hijau */
+      width: 60px; /* Lebar ikon diperbesar */
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #008000; /* Warna hijau */
+      margin-bottom: 5px;
+      font-size: 24px; /* Ukuran font diperkecil */
+    }
+
+    p {
+      color: #333;
+      font-size: 16px; /* Ukuran font diperkecil */
+      margin-bottom: 10px; /* Jarak antara paragraf */
+    }
+
+    .info {
+      font-size: 14px; /* Ukuran font diperkecil */
+      color: #888;
+      margin-bottom: 10px; /* Jarak antara info dan durasi */
+    }
+
+    .duration {
+      font-size: 14px; /* Ukuran font diperkecil */
+      margin-bottom: 10px;
+      font-style: italic; /* Gaya teks italic */
+    }
+
+    .countdown {
+      font-weight: bold;
+      animation: pulse 1s infinite alternate; /* Animasi durasi */
+    }
+
+    @keyframes pulse {
+      0% {
+        color: #ff0000; /* Warna awal */
+      }
+      100% {
+        color: #008000; /* Warna akhir */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+    <h2>Sukses!</h2>
+    <p>Transaksi Anda telah berhasil.</p>
+    <div class="info">
+      Pembayaran {{jenis_payment}} <br>
+      Id Trx : {{id_transaksi}}
+    </div>
+    <div class="duration">Kamu akan keluar otomatis dalam waktu <span id="timer" class="countdown">4</span> detik.</div>
+  </div>
+
+  <script>
+    // Fungsi untuk menghitung mundur
+    function countdown() {
+      var seconds = 4; // Waktu dalam detik
+      var timer = setInterval(function() {
+        seconds--;
+        document.getElementById("timer").textContent = seconds; // Update teks timer
+        if (seconds <= 0) {
+          clearInterval(timer); // Hentikan perhitungan saat mencapai 0
+          // Buka aplikasi setelah hitung mundur selesai
+          window.location.href = "intent://#Intent;package=com.fnspay;end";
+        }
+      }, 1000); // Setiap 1 detik
+    }
+
+    // Panggil fungsi countdown setelah dokumen dimuat
+    document.addEventListener("DOMContentLoaded", countdown);
+  </script>
+</body>
+</html>
